@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        #form{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            display: none;
+            position: relative;
+        }
+        #bold{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Teste deine Reaktionsfähigkeit!</h1>
+
+    <p>Klicke so schnell du kannst auf die Vierecke bzw. Kreise!</p>
+
+    <p id="bold">Deine Zeit : <span id="dauer"></span></p>
+
+    <div id="form"></div>
+
+    <script type="text/javascript">
+
+        var start = new Date().getTime(); 
+
+        function RandonColor(){
+
+            var value = "0123456789ABCDEF".split('');
+            var color = "#";
+            for(var i = 0; i < 6; i++){
+                color += value[Math.floor(Math.random()* 16)];
+            }
+            return color;
+        }
+
+        function NodeAppear(){
+
+            var top = Math.random()* 400;
+
+            var left = Math.random()* 400;
+
+            var width = (Math.random()* 200) + 100;
+
+            if(Math.random() > 0.5){
+                document.getElementById("form").style.borderRadius = "50%";
+            }
+            else{
+                document.getElementById("form").style.borderRadius = "0";
+            }
+
+            document.getElementById("form").style.backgroundColor = RandonColor();
+            document.getElementById("form").style.top = top + "px";
+            document.getElementById("form").style.left = left + "px";
+            document.getElementById("form").style.width = width + "px";
+            document.getElementById("form").style.height = width + "px";
+
+            document.getElementById("form").style.display = "block";
+
+            start = new Date().getTime();
+        }
+         function appearAfterDelay(){
+            setTimeout(NodeAppear, Math.random() * 2000);
+         }
+        
+         appearAfterDelay();
+        
+        document.getElementById("form").onclick = function(){
+            document.getElementById("form").style.display = "none";
+
+            var end = new Date().getTime();
+            var dauer = (end - start) /1000;
+
+            document.getElementById("dauer").innerHTML = dauer + "s";
+
+            appearAfterDelay();
+
+            
+        }
+    </script>
+</body>
+</html>
